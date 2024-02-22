@@ -55,7 +55,7 @@ public class MeshDestroy : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.tag == "Player"|| collision.transform.tag == "Breakable" || collision.transform.tag == "Pickable")
+        if(collision.transform.tag == "Breakable" || collision.transform.tag == "Pickable" || collision.transform.tag == "Ground")
         {
             DestroyMesh();
         }
@@ -326,7 +326,7 @@ public class MeshDestroy : MonoBehaviour
             collider.convex = true;
 
             var rigidbody = GameObject.AddComponent<Rigidbody>();
-            rigidbody.mass = 0.5f; 
+            //rigidbody.mass = 0.5f; 
 
             Vector3 randomDirection = new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
             rigidbody.AddForce(randomDirection * 100f);
