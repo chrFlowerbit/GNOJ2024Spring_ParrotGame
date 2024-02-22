@@ -17,9 +17,7 @@ public class PlayerPickUpDrop : MonoBehaviour {
             if (objectGrabbable == null) {
                 // Not carrying an object, try to grab
                 if (Physics.Raycast(raycastPoint.position, raycastPoint.forward, out RaycastHit raycastHit, pickUpDistance, pickUpLayerMask)) {
-
-                    Debug.Log(raycastHit.transform);
-                    
+                                        
                     if (raycastHit.transform.GetComponent<ObjectGrabbable>() != null) {
                         objectGrabbable = raycastHit.transform.GetComponent<ObjectGrabbable>();
                         objectGrabbable.Grab(objectGrabPointTransform);

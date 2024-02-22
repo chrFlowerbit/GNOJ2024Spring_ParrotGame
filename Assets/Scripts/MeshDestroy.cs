@@ -31,7 +31,6 @@ public class MeshDestroy : MonoBehaviour
         objectSize = (transform.localScale.x + transform.localScale.y + transform.localScale.z) / 3;
 
         CutCascades = CalculatePartsCount();
-        Debug.Log("parts count: " + CutCascades);
     }
 
     int CalculatePartsCount()
@@ -56,7 +55,6 @@ public class MeshDestroy : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.transform.name);
         if(collision.transform.tag == "Player"|| collision.transform.tag == "Breakable" || collision.transform.tag == "Pickable")
         {
             DestroyMesh();
