@@ -2138,7 +2138,7 @@ MonoBehaviour:
   loadingScreen: {fileID: 1194945253}
   loadingBar: {fileID: 373344725}
   audioSource: {fileID: 373195185}
-  loadingDelta: 0.1
+  loadingDelta: 0.9
 --- !u!95 &1353779134
 Animator:
   serializedVersion: 5
