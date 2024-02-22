@@ -110,9 +110,9 @@ public class PlayerMovementAdvanced : MonoBehaviour
         if (Input.GetKeyDown(crouchKey))
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
-            transform.GetComponent<SphereCollider>().radius = crouchYScale;
+            transform.GetComponent<BoxCollider>().size = new Vector3(crouchYScale, crouchYScale, crouchYScale);
             if (state == MovementState.air)
-            rb.AddForce(Vector3.down * jumpForce, ForceMode.Impulse);
+                rb.AddForce(Vector3.down * jumpForce, ForceMode.Impulse);
 
             //crouching = true;
         }
@@ -121,7 +121,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
         if (Input.GetKeyUp(crouchKey))
         {
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-            transform.GetComponent<SphereCollider>().radius = 1;
+            transform.GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
             //crouching = false;
         }
     }
@@ -146,7 +146,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
         else
         {
             state = MovementState.air;
-
             if (moveSpeed < airMinSpeed)
                 desiredMoveSpeed = airMinSpeed;
         }
