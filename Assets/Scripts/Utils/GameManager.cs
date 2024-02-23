@@ -17,16 +17,15 @@ public class GameManager : MonoBehaviour
 
     // Другие переменные и методы игрового менеджера
 
-    public  int score = 0; // Переменная для отслеживания счета
+    public static int score = 0; // Переменная для отслеживания счета
     private float counter = 0; // Начальное значение таймера
     public float maxTime = 60f; // Начальное значение таймера
 
-
+    public static GameManager instance;
     void Start()
     {
+        instance = this;
         counter = maxTime;
-        UpdateScoreUI(); // Обновляем отображение счета при запуске игры
-        UpdateTimerUI(); // Обновляем отображение таймера при запуске игры
     }
     void FixedUpdate()
     {
@@ -35,7 +34,7 @@ public class GameManager : MonoBehaviour
         UpdateTimerUI();
     }
     // Метод для обновления отображения счета
-    void UpdateScoreUI()
+    void UpdateScoreUI(int score)
     {
         scoreText.text = score.ToString(); // Обновляем текст счета
     }
@@ -68,9 +67,9 @@ public class GameManager : MonoBehaviour
    
 
     // Метод для увеличения счета
-    public void IncreaseScore(int points)
+    public static void IncreaseScore(int points)
     {
         score += points; // Увеличиваем счет на указанное количество очков
-        UpdateScoreUI(); // Обновляем отображение счета
+        GameManager.instance.UpdateScoreUI(score); // Обновляем отображение счета
     }
 }

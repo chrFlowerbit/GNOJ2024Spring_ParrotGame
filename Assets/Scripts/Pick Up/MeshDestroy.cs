@@ -11,11 +11,12 @@ public class MeshDestroy : MonoBehaviour
     private Plane edgePlane = new Plane();
 
     public float ExplodeForce = 0;
-    public float fragility = 0;
 
-    private bool fCollided = false;
-    private Vector3 fLastVel;
-    private Collision fCollision;
+    public int price = 5;
+    public float lifeTime = 10;
+    //private bool fCollided = false;
+    //private Vector3 fLastVel;
+    //private Collision fCollision;
 
     public int CutCascades = 1;
 
@@ -24,6 +25,7 @@ public class MeshDestroy : MonoBehaviour
     public float maxPartsCount = 10; // The maximum number of parts the object breaks into
     public float partsScaleFactor = 0.1f; // The scaling factor for the number of parts based on size
 
+    private bool isPart = false;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +33,11 @@ public class MeshDestroy : MonoBehaviour
         objectSize = (transform.localScale.x + transform.localScale.y + transform.localScale.z) / 3;
 
         CutCascades = CalculatePartsCount();
+
+        if (isPart)
+        {
+            StartCoroutine(RemoveComponentsAfterDelay(lifeTime));
+        }
     }
 
     int CalculatePartsCount()
@@ -55,7 +62,7 @@ public class MeshDestroy : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.tag == "Player" ||  collision.transform.tag == "Breakable" || collision.transform.tag == "Pickable" || collision.transform.tag == "Ground")
+        if(!isPart && (collision.transform.tag == "Player" ||  collision.transform.tag == "Breakable" || collision.transform.tag == "Pickable" || collision.transform.tag == "Ground"))
         {
             DestroyMesh();
         }
@@ -106,6 +113,7 @@ public class MeshDestroy : MonoBehaviour
             parts[i].GameObject.GetComponent<Rigidbody>().AddForceAtPosition(parts[i].Bounds.center * ExplodeForce, transform.position);
         }
 
+        GameManager.IncreaseScore(price);
         Destroy(gameObject);
     }
 
@@ -331,11 +339,33 @@ public class MeshDestroy : MonoBehaviour
             Vector3 randomDirection = new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
             rigidbody.AddForce(Vector3.up * 100f);
 
-            //var meshDestroy = GameObject.AddComponent<MeshDestroy>();
+            var meshDestroy = GameObject.AddComponent<MeshDestroy>();
+            meshDestroy.isPart=true;
             //meshDestroy.CutCascades = original.CutCascades;
             //meshDestroy.ExplodeForce = original.ExplodeForce;
 
+
         }
 
+    }
+
+    IEnumerator RemoveComponentsAfterDelay(float delay)
+    {
+        // Wait for the specified delay
+        yield return new WaitForSeconds(delay);
+
+        // Check if the GameObject has a Rigidbody component and remove it
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            DestroyImmediate(rb);
+        }
+
+        // Check if the GameObject has a Collider component and remove it
+        Collider collider = GetComponent<Collider>();
+        if (collider != null)
+        {
+            DestroyImmediate(collider);
+        }
     }
 }
