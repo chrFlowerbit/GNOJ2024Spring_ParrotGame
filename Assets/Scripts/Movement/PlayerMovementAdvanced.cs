@@ -111,8 +111,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             transform.GetComponent<BoxCollider>().size = new Vector3(crouchYScale, crouchYScale, crouchYScale);
-            if (state == MovementState.air)
-                rb.AddForce(Vector3.down * jumpForce, ForceMode.Impulse);
+            //if (state == MovementState.air)
+                rb.AddForce(Vector3.down * jumpForce*2, ForceMode.Impulse);
 
             //crouching = true;
         }

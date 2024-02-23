@@ -21,7 +21,7 @@ public class ObjectGrabbable : MonoBehaviour {
     public void Drop() {
         //transform.GetComponent<MeshDestroy>().enabled = true;
         objectRigidbody.useGravity = true;
-        objectRigidbody.AddForce(objectGrabPointTransform.forward * 10f,ForceMode.Impulse);
+        objectRigidbody.AddForce(objectGrabPointTransform.forward * 100f,ForceMode.Impulse);
         this.objectGrabPointTransform = null;
     }
 
