@@ -13,7 +13,7 @@ public class MeshDestroy : MonoBehaviour
     public float ExplodeForce = 0;
     public float fragility = 0;
 
-    private bool fCollided = false;
+    //private bool fCollided = false;
     private Vector3 fLastVel;
     private Collision fCollision;
 
