@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemtAI : MonoBehaviour
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BossAI : MonoBehaviour
 {
     public Transform playerTransform; // Assign your player's transform here in the inspector
 
@@ -29,7 +33,7 @@ public class EnemtAI : MonoBehaviour
 
     void Update()
     {
-       // grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        // grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
         //if (!grounded) ApplyGravity();
         // Check distance between snake and player
         float distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
@@ -60,7 +64,7 @@ public class EnemtAI : MonoBehaviour
         if (collision.gameObject.CompareTag("Player")) // Make sure your player GameObject has the tag "Player"
         {
             playerDetected = true;
-           // Debug.Log("Attack");
+            // Debug.Log("Attack");
             collision.gameObject.TryGetComponent<PlayerMovementCombat>(out PlayerMovementCombat playerMovementCombat);
 
             if (playerMovementCombat != null)
@@ -72,7 +76,7 @@ public class EnemtAI : MonoBehaviour
         }
 
     }
-    
+
 
     void OnCollisionExit(Collision other)
     {
