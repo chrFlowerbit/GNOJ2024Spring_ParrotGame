@@ -49,7 +49,7 @@ public class MeshDestroy : MonoBehaviour
     {
         // Directly use objectSize to calculate the number of parts
         // Ensure that the object always breaks into at least  3 parts
-        int partsCount = Mathf.Max(3, Mathf.RoundToInt(objectSize * partsScaleFactor));
+        int partsCount = Mathf.Abs(Mathf.Max(3, Mathf.RoundToInt(objectSize * partsScaleFactor)));
 
         // Ensure the number of parts is within the specified range
         return Mathf.Clamp(partsCount, (int)minPartsCount, (int)maxPartsCount);
