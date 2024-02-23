@@ -34,15 +34,9 @@ public class EmitForce : MonoBehaviour
             if (script != null)
             {                
                 // Calculate the closest point on the collider to the center of the sphere
-                Vector3 closestPoint = collider.ClosestPoint(transform.position);
-                if(closestPoint != null)
-                {
-                    Debug.Log("__________");
-                    Debug.Log(closestPoint);
-                    Debug.Log(script);
-                    Debug.Log("__________");
-                    script.DestroyMesh(closestPoint, Quaternion.identity);
-                }     
+                Vector3 closestPoint = collider.ClosestPoint(transform.position);            
+                script.DestroyMesh(closestPoint, Quaternion.identity);
+                  
 
             }
         }

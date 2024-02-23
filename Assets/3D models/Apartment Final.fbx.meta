@@ -3,7 +3,87 @@ guid: 09ca1cce55a70a549917bbcc5684877d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Beige
+    second: {fileID: 2100000, guid: c701881767847bb4e89a1259aec519c1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blue
+    second: {fileID: 2100000, guid: 89a3be986438c1643bd69974fefa7650, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Deeper brown
+    second: {fileID: 2100000, guid: 5127a3a283f6e574b9928f2c463ba466, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass
+    second: {fileID: 2100000, guid: 6d268e40a4165e041978281031e8d216, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_ArtTable
+    second: {fileID: 2100000, guid: 839d37ccabcde0c42830f2ff856c4198, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_CoffeeTable
+    second: {fileID: 2100000, guid: c86c0bc250d836d49b893bf89029accf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_FloorShelf
+    second: {fileID: 2100000, guid: 332c2eb906414c84cb3d87a7bdf5dc06, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_KitchenCounter
+    second: {fileID: 2100000, guid: 2bf14689aeda2a440acef5aae97ca868, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_KitchenIsland
+    second: {fileID: 2100000, guid: f47490cab3a3b234f88ca6ac96a8d10b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Sofa
+    second: {fileID: 2100000, guid: cf047334e66edfa4b8682637c6fc1c83, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Stool
+    second: {fileID: 2100000, guid: 1c547b08fac651d4db2d2ee1631e614f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_WallShelf
+    second: {fileID: 2100000, guid: 79798529533329a42b0713666437f713, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_WallsAndFloor
+    second: {fileID: 2100000, guid: bb8b55e1cd3bf424d9f39952dcdfb6fb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_WhiteCarpet
+    second: {fileID: 2100000, guid: fb27f647fcfc2d741b56184fb43afe4f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_WindowFrame
+    second: {fileID: 2100000, guid: 44c024ce2a889194796124f790fc7b08, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Silver
+    second: {fileID: 2100000, guid: ac6f74f4bafeb05418c03006b083d0c8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -32,10 +112,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
