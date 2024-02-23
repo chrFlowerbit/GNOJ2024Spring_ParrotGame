@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using Unity.VisualScripting;
+using static UnityEngine.EventSystems.EventTrigger;
+using System.ComponentModel;
 
 public class PlayerMovementCombat : MonoBehaviour
 {
@@ -45,6 +48,15 @@ public class PlayerMovementCombat : MonoBehaviour
     float horizontalInput;
     float verticalInput;
 
+    [Header("Ground Check")]
+    [SerializeField] bool isAttacking;
+    [SerializeField] float attackTime,attackTimeMax;
+    [SerializeField] GameObject beakAttackCollider;
+    [SerializeField] float attackDamae;
+    bool isDashing;
+    float isDashingTime, isDashingTimeMax = .3f;
+
+
     Vector3 moveDirection;
 
     Rigidbody rb;
@@ -70,6 +82,9 @@ public class PlayerMovementCombat : MonoBehaviour
         readyToJump = true;
 
         startYScale = transform.localScale.y;
+        isAttacking = false;
+        isDashing = false;
+        attackTime = 0;
     }
 
     private void Update()
@@ -86,6 +101,28 @@ public class PlayerMovementCombat : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = groundDrag;
+
+        if (isAttacking)
+        {
+            attackTime-= Time.deltaTime;
+            if(attackTime<0) {
+                isAttacking = false;
+                beakAttackCollider.SetActive(false);
+                
+
+            }
+        }
+        if (isDashing)
+        {
+            isDashingTime -= Time.deltaTime;
+            if (isDashingTime < 0)
+            {
+                isDashing = false;
+               // beakAttackCollider.SetActive(false);
+
+
+            }
+        }
     }
 
 
@@ -94,6 +131,9 @@ public class PlayerMovementCombat : MonoBehaviour
 
 
 
+    public bool CanTakeDamage() {
+        //Debug.Log(!(isAttacking || isDashing));
+        return !(isAttacking || isDashing); }
 
 
     private void FixedUpdate()
@@ -155,6 +195,10 @@ public class PlayerMovementCombat : MonoBehaviour
         {
             Bite();
         }
+        //else beakAttackCollider.gameObject.SetActive(false);
+
+
+
 
 
 
@@ -162,50 +206,84 @@ public class PlayerMovementCombat : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            bool didIKIlled = false;
+           HealthManager enemy= other.GetComponentInParent<HealthManager>();
+            // other.TryGetComponent<HealthManager>(out HealthManager enemy );
+            Debug.Log(enemy);
+            if(enemy != null)
+            {
+                didIKIlled= enemy.TakeDamage(attackDamae);
+                Debug.Log("Attack");
+
+            }
+            if(didIKIlled)
+            {
+                HealthManager healthManager = this.GetComponent<HealthManager>();
+                healthManager.Heal(10);
+            }
+
+        }
+
+
+
+
+    }
+
+
     private void Bite()
     {
-        Debug.Log(verticalInput);
+        beakAttackCollider.gameObject.SetActive(true);
         moveDirection = orientation.forward * 0.25f + orientation.right * 0;
-        //Debug.Log(moveDirection.ToString());
-        float dashForce = 15f;
+        float dashForce = 5f;
 
-        Vector3 dashDir;
+        Vector3 dashDir = moveDirection.normalized * dashForce;
 
+        if (dashDir != Vector3.zero) 
+        {
+            Quaternion dashRotation = Quaternion.LookRotation(dashDir, Vector3.up);
+            rb.rotation = dashRotation; 
+        }
 
-        dashDir = moveDirection.normalized * dashForce;
-
-        // rb.AddForce(dashDir * dashForce * 10, ForceMode.Force);
         rb.AddForce(dashDir * dashForce, ForceMode.Impulse);
+
+
+        attackTime = attackTimeMax;
+        isAttacking = true;
 
     }
 
     private void Dash()
     {
+        isDashing = true;
+        isDashingTime = isDashingTimeMax;
+
+
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         Debug.Log(moveDirection.ToString());
         float dashForce = 15f;
 
         Vector3 dashDir;
-        
 
         dashDir = moveDirection.normalized* dashForce;
 
-       // rb.AddForce(dashDir * dashForce * 10, ForceMode.Force);
         rb.AddForce(dashDir * dashForce, ForceMode.Impulse);
-
+        isDashingTime = isDashingTimeMax;
+        
 
     }
 
     private void StateHandler()
     {       
-        // Mode - Crouching
         if (crouching)
         {
             state = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
         }
               
-        // Mode - Walking
         else if (grounded)
         {
             state = MovementState.walking;
