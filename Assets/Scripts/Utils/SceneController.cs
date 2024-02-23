@@ -17,17 +17,46 @@ public class SceneController : MonoBehaviour
 
     #endregion
 
+    #region  Serialized Fields
+
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject credit;
     [SerializeField] GameObject loadingScreen;
+    [SerializeField] GameObject pauseScreen;
     [SerializeField] Slider loadingBar;
     [SerializeField] AudioSource audioSource;
     [SerializeField] float loadingDelta = 0.9f;
+    [SerializeField] GameObject musicMuteImage;
+    [SerializeField] Button startGameButton;
+    [SerializeField] Button creditsGameButton;
+    [SerializeField] Button quitGameButton;
+
+    #endregion
+
+    #region  Fields
 
     private Animator animator;
     private int levelToLoad = 0;
     private float target = 0;
+    private bool isGamePaused = false;
+    private bool isGameMusicMuted = false;
+    private bool isMainMenuActive = true;
 
+    #endregion
+
+    #region Properties
+
+    public bool IsGamePaused
+    {
+        get { return isGamePaused; }
+    }     
+
+    public bool IsGameMusicMuted
+    {
+        get { return isGameMusicMuted; }
+    } 
+
+    #endregion
 
     private void Awake()
     {
@@ -50,6 +79,18 @@ public class SceneController : MonoBehaviour
         {
             loadingBar.value = Mathf.MoveTowards(loadingBar.value, target, loadingDelta * Time.deltaTime);
         }
+
+        if(Input.GetKeyDown(KeyCode.Escape)) 
+        {
+            if(!pauseScreen.activeSelf && !isMainMenuActive)
+            {
+                SetPauseScreen(true);
+            }
+            else if(pauseScreen.activeSelf)
+            {
+                SetPauseScreen(false);
+            }
+        }
     }
 
 
@@ -57,12 +98,18 @@ public class SceneController : MonoBehaviour
 
     public void LoadMainMenu()
     {
+        SetPauseScreen(false);
+        isMainMenuActive = true;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         FadeAndLoadScene(0);
     }
 
     public void LoadGame()
     {
         FadeAndLoadScene(1);
+        isMainMenuActive = false;
+        mainMenu.SetActive(false);
     }
 
     public void CreditsGame()
@@ -84,6 +131,27 @@ public class SceneController : MonoBehaviour
         Application.Quit();
     }
 
+    public void ContinueGame()
+    {
+        SetPauseScreen(false);
+    }
+
+    public void MuteMusic()
+    {
+        if(!isGameMusicMuted)
+        {
+            audioSource.volume = 0f;
+            musicMuteImage.SetActive(true);
+            isGameMusicMuted = true;
+        }
+        else
+        {
+            audioSource.volume = 1f;
+            musicMuteImage.SetActive(false);
+            isGameMusicMuted = false;
+        }
+    }
+
     public void OnFadeOutComplete()
     {
         LoadSceneAsync();
@@ -91,8 +159,25 @@ public class SceneController : MonoBehaviour
 
     #endregion
 
-
     #region Private Methods
+
+    private void SetPauseScreen(bool setActive)
+    {
+        pauseScreen.SetActive(setActive);
+        isGamePaused = setActive;
+        Cursor.visible = setActive;
+
+        if(setActive)
+        {
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.Confined;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
 
     private async void LoadSceneAsync()
     {
@@ -116,13 +201,18 @@ public class SceneController : MonoBehaviour
         operation.allowSceneActivation = true;
         loadingScreen.SetActive(false);
         animator.SetBool("IsFadingOut", false);
+
+        if(isMainMenuActive)
+        {
+            mainMenu.SetActive(true);
+        }
     }
 
     private void FadeAndLoadScene(int sceneBuildIndex)
     {
         levelToLoad = sceneBuildIndex;
         animator.SetBool("IsFadingOut", true);
-        StartCoroutine(StartFadeAudio(1.0f, 0));
+        // StartCoroutine(StartFadeAudio(1.0f, 0));
     }
 
     private IEnumerator StartFadeAudio(float duration, float targetVolume)
