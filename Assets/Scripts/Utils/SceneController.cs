@@ -109,7 +109,6 @@ public class SceneController : MonoBehaviour
     {
         FadeAndLoadScene(1);
         isMainMenuActive = false;
-        mainMenu.SetActive(false);
     }
 
     public void CreditsGame()
@@ -165,7 +164,6 @@ public class SceneController : MonoBehaviour
     {
         pauseScreen.SetActive(setActive);
         isGamePaused = setActive;
-        Cursor.visible = setActive;
 
         if(setActive)
         {
@@ -177,6 +175,7 @@ public class SceneController : MonoBehaviour
             Time.timeScale = 1f;
             Cursor.lockState = CursorLockMode.Locked;
         }
+        Cursor.visible = setActive;
     }
 
     private async void LoadSceneAsync()
@@ -205,6 +204,10 @@ public class SceneController : MonoBehaviour
         if(isMainMenuActive)
         {
             mainMenu.SetActive(true);
+        }
+        else
+        {
+            mainMenu.SetActive(false);
         }
     }
 
