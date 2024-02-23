@@ -55,7 +55,7 @@ public class MeshDestroy : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.tag == "Breakable" || collision.transform.tag == "Pickable" || collision.transform.tag == "Ground")
+        if(collision.transform.tag == "Player" ||  collision.transform.tag == "Breakable" || collision.transform.tag == "Pickable" || collision.transform.tag == "Ground")
         {
             DestroyMesh();
         }
@@ -303,7 +303,7 @@ public class MeshDestroy : MonoBehaviour
             GameObject = new GameObject(original.name);
             GameObject.transform.position = original.transform.position;
             GameObject.transform.rotation = original.transform.rotation;
-            GameObject.transform.localScale = original.transform.localScale;
+            GameObject.transform.localScale = original.transform.parent.parent.parent.parent.parent.localScale;
 
             var mesh = new Mesh();
             mesh.name = original.GetComponent<MeshFilter>().mesh.name;
@@ -329,7 +329,7 @@ public class MeshDestroy : MonoBehaviour
             //rigidbody.mass = 0.5f; 
 
             Vector3 randomDirection = new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
-            rigidbody.AddForce(randomDirection * 100f);
+            rigidbody.AddForce(Vector3.up * 100f);
 
             //var meshDestroy = GameObject.AddComponent<MeshDestroy>();
             //meshDestroy.CutCascades = original.CutCascades;
