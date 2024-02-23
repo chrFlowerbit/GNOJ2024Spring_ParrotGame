@@ -11,11 +11,14 @@ public class MeshDestroy : MonoBehaviour
     private Plane edgePlane = new Plane();
 
     public float ExplodeForce = 0;
-    public float fragility = 0;
 
-    private bool fCollided = false;
-    private Vector3 fLastVel;
-    private Collision fCollision;
+    public int price = 5;
+    public float lifeTime = 10;
+
+    public GameObject hitEffect;
+    //private bool fCollided = false;
+    //private Vector3 fLastVel;
+    //private Collision fCollision;
 
     public int CutCascades = 1;
 
@@ -24,6 +27,9 @@ public class MeshDestroy : MonoBehaviour
     public float maxPartsCount = 10; // The maximum number of parts the object breaks into
     public float partsScaleFactor = 0.1f; // The scaling factor for the number of parts based on size
 
+    private bool isPart = false;
+
+    [SerializeField] private AudioClip hitSound; // Serialize a hit sound clip
 
     // Start is called before the first frame update
     void Start()
@@ -31,13 +37,19 @@ public class MeshDestroy : MonoBehaviour
         objectSize = (transform.localScale.x + transform.localScale.y + transform.localScale.z) / 3;
 
         CutCascades = CalculatePartsCount();
+        hitEffect = Resources.Load<GameObject>("HitEffect_A");
+        hitSound = Resources.Load<AudioClip>("hit_sfx");
+        if (isPart)
+        {
+            StartCoroutine(RemoveComponentsAfterDelay(lifeTime));
+        }
     }
 
     int CalculatePartsCount()
     {
         // Directly use objectSize to calculate the number of parts
         // Ensure that the object always breaks into at least  3 parts
-        int partsCount = Mathf.Max(3, Mathf.RoundToInt(objectSize * partsScaleFactor));
+        int partsCount = Mathf.Abs(Mathf.Max(3, Mathf.RoundToInt(objectSize * partsScaleFactor)));
 
         // Ensure the number of parts is within the specified range
         return Mathf.Clamp(partsCount, (int)minPartsCount, (int)maxPartsCount);
@@ -55,14 +67,24 @@ public class MeshDestroy : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.tag == "Breakable" || collision.transform.tag == "Pickable" || collision.transform.tag == "Ground")
+        if(!isPart && (collision.transform.tag == "Player" ||  collision.transform.tag == "Breakable" || collision.transform.tag == "Pickable" || collision.transform.tag == "Ground"))
         {
-            DestroyMesh();
+            ContactPoint contact = collision.contacts[0];
+            Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+            Vector3 pos = contact.point;
+
+            DestroyMesh(pos,rot);
         }
     }
  
-    private void DestroyMesh()
+    public void DestroyMesh(Vector3 pos, Quaternion rot)
     {
+
+        AudioSource.PlayClipAtPoint(hitSound, pos);
+
+        var hitEffectObj = Instantiate(hitEffect, pos, rot);
+        Destroy(hitEffectObj, 2);
+
         var originalMesh = GetComponent<MeshFilter>().mesh;
         originalMesh.RecalculateBounds();
         var parts = new List<PartMesh>();
@@ -106,6 +128,7 @@ public class MeshDestroy : MonoBehaviour
             parts[i].GameObject.GetComponent<Rigidbody>().AddForceAtPosition(parts[i].Bounds.center * ExplodeForce, transform.position);
         }
 
+        GameManager.IncreaseScore(price);
         Destroy(gameObject);
     }
 
@@ -303,7 +326,7 @@ public class MeshDestroy : MonoBehaviour
             GameObject = new GameObject(original.name);
             GameObject.transform.position = original.transform.position;
             GameObject.transform.rotation = original.transform.rotation;
-            GameObject.transform.localScale = original.transform.localScale;
+            GameObject.transform.localScale = original.transform.parent.parent.parent.parent.parent.localScale;
 
             var mesh = new Mesh();
             mesh.name = original.GetComponent<MeshFilter>().mesh.name;
@@ -329,13 +352,35 @@ public class MeshDestroy : MonoBehaviour
             //rigidbody.mass = 0.5f; 
 
             Vector3 randomDirection = new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
-            rigidbody.AddForce(randomDirection * 100f);
+            rigidbody.AddForce(Vector3.up * 100f);
 
-            //var meshDestroy = GameObject.AddComponent<MeshDestroy>();
+            var meshDestroy = GameObject.AddComponent<MeshDestroy>();
+            meshDestroy.isPart=true;
             //meshDestroy.CutCascades = original.CutCascades;
             //meshDestroy.ExplodeForce = original.ExplodeForce;
 
+
         }
 
+    }
+
+    IEnumerator RemoveComponentsAfterDelay(float delay)
+    {
+        // Wait for the specified delay
+        yield return new WaitForSeconds(delay);
+
+        // Check if the GameObject has a Rigidbody component and remove it
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            DestroyImmediate(rb);
+        }
+
+        // Check if the GameObject has a Collider component and remove it
+        Collider collider = GetComponent<Collider>();
+        if (collider != null)
+        {
+            DestroyImmediate(collider);
+        }
     }
 }
