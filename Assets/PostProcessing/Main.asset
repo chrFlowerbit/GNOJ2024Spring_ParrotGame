@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
   intensity:
     overrideState: 1
-    value: 1
+    value: 0.25
   threshold:
     overrideState: 0
     value: 1
@@ -112,13 +112,13 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 1
+    value: 0.5
   color:
     overrideState: 0
     value: {r: 0, g: 0, b: 0, a: 1}
   ambientOnly:
     overrideState: 0
-    value: 0
+    value: 1
   noiseFilterTolerance:
     overrideState: 0
     value: 0
@@ -129,8 +129,8 @@ MonoBehaviour:
     overrideState: 0
     value: -12
   thicknessModifier:
-    overrideState: 0
-    value: 1
+    overrideState: 1
+    value: 2
   directLightingStrength:
     overrideState: 0
     value: 0
@@ -236,17 +236,17 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   filtering:
-    overrideState: 1
+    overrideState: 0
     value: {x: 53.999958, y: 99}
   minLuminance:
     overrideState: 1
-    value: -2.06
+    value: -0.6
   maxLuminance:
     overrideState: 0
-    value: 1.07
+    value: 1.73
   keyValue:
     overrideState: 1
-    value: 1.35
+    value: 1
   eyeAdaptation:
     overrideState: 0
     value: 0
