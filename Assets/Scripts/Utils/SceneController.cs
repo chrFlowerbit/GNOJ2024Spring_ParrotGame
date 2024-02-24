@@ -57,6 +57,8 @@ public class SceneController : MonoBehaviour
     private bool isGameOver = false;
     private bool setCreditActive = false;
 
+    private static int numberOfPlays = 0;
+
     #endregion
 
     #region Properties
@@ -129,8 +131,14 @@ public class SceneController : MonoBehaviour
 
     public void LoadGame()
     {
+        if(numberOfPlays == 0)
+        {
+            
+        }
+
         FadeAndLoadScene(1);
         isMainMenuActive = false;
+        numberOfPlays++;
     }
 
     public void CreditsGame()
