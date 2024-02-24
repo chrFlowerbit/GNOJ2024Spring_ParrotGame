@@ -11,23 +11,29 @@ public class GameManager : MonoBehaviour
 
     //count down
 
-    public TMP_Text scoreText; // Ссылка на текстовое поле для отображения счета
-    public TMP_Text timerText; // Ссылка на текстовое поле для отображения таймера
-    public Slider timerSlider; // Ссылка на слайдер для отображения градиента таймера
+    public TMP_Text scoreText; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    public TMP_Text timerText; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public Slider timerSlider; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-    // Другие переменные и методы игрового менеджера
+    // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-    public static int score = 0; // Переменная для отслеживания счета
-    private float counter = 0; // Начальное значение таймера
-    public float maxTime = 60f; // Начальное значение таймера
+    public static int score = 0; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    private float counter = 0; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public float maxTime = 60f; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     public int maxMana = 10; // Maximum mana capacity
     public int currentMana = 0; // Current mana
     public Slider manaSlider; // Slider to display mana
 
 
+    private SceneController sceneController;
     public static GameManager instance;
     public static bool canEmitForce = false;
+
+    private void Awake() {
+        sceneController = FindObjectOfType<SceneController>();
+    }
+
     void Start()
     {
         manaSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = Color.grey;
@@ -42,7 +48,7 @@ public class GameManager : MonoBehaviour
         UpdateTimerUI();
         UpdateManaUI();
     }
-    // Метод для обновления отображения счета
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     void UpdateScoreUI(int score)
     {
         currentMana++;
@@ -55,7 +61,7 @@ public class GameManager : MonoBehaviour
         }
 
         UpdateManaUI();
-        scoreText.text = score.ToString(); // Обновляем текст счета
+        scoreText.text = score.ToString(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     }
     void UpdateManaUI()
     {
@@ -72,8 +78,11 @@ public class GameManager : MonoBehaviour
     void UpdateTimer()
     {
         // Calculate the time elapsed between frames and subtract it from the timer
-        float timeElapsed = Time.fixedDeltaTime;
-        counter -= timeElapsed;
+        if(!sceneController.IsGameOver)
+        {
+            float timeElapsed = Time.fixedDeltaTime;
+            counter -= timeElapsed;
+        }
 
         // If the timer goes below 0, clamp it to 0
         if (counter < 0f)
@@ -81,6 +90,8 @@ public class GameManager : MonoBehaviour
             counter = 0f;
             // Optionally, you can handle game over logic here
             Debug.Log("Time's up!");
+            Time.timeScale = 0f;
+            sceneController.IsGameOver = true;
         }
     }
 
@@ -96,11 +107,11 @@ public class GameManager : MonoBehaviour
     }
    
 
-    // Метод для увеличения счета
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     public static void IncreaseScore(int points)
     {
-        score += points; // Увеличиваем счет на указанное количество очков
-        instance.UpdateScoreUI(score); // Обновляем отображение счета
+        score += points; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        instance.UpdateScoreUI(score); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     }
 
     public static IEnumerator DepleteSliderValue(Slider slider, float duration, float delay = 0f)
