@@ -3784,6 +3784,7 @@ MonoBehaviour:
   loadingPanel: {fileID: 1194945253}
   pausePanel: {fileID: 1969830672}
   endScreenPanel: {fileID: 1106957565}
+  fadeImage: {fileID: 1999043526}
   loadingBar: {fileID: 373344725}
   loadingDelta: 0.9
   musicMuteImage: {fileID: 2011606390}

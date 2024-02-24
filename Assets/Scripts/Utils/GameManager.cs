@@ -90,7 +90,6 @@ public class GameManager : MonoBehaviour
             counter = 0f;
             // Optionally, you can handle game over logic here
             Debug.Log("Time's up!");
-            Time.timeScale = 0f;
             sceneController.IsGameOver = true;
         }
     }
