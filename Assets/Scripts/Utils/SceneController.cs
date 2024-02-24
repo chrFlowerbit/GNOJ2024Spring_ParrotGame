@@ -58,6 +58,8 @@ public class SceneController : MonoBehaviour
     private bool isGameOver = false;
     private bool isInsideGameOver = false;
     private bool setCreditActive = false;
+    private bool isCutscenePlaying = false;
+    private float countDown = 64f;
 
     private static int numberOfPlays = 0;
 
@@ -109,13 +111,39 @@ public class SceneController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape)) 
         {
             if(!pausePanel.activeSelf && !isMainMenuActive && !loadingPanel.activeSelf 
-                && !fadeImage.activeSelf && !creditPanel.activeSelf && !endScreenPanel.activeSelf)
+                && !fadeImage.activeSelf && !creditPanel.activeSelf && !endScreenPanel.activeSelf && !isCutscenePlaying)
             {
                 SetPauseScreen(true);
             }
             else if(pausePanel.activeSelf)
             {
                 SetPauseScreen(false);
+            }
+
+            if(isCutscenePlaying)
+            {
+                countDown = 0;
+                foreach (var audio in FindObjectsOfType<AudioSource>())
+                {
+                    audioSource = audio;
+                    StartCoroutine(StartFadeAudio(1.0f, 0));
+                }
+            }
+        }
+
+        if (numberOfPlays == 0 && isCutscenePlaying)
+        {
+            if(countDown >= 0) 
+            {
+                countDown -= Time.deltaTime;
+            }
+
+            if(countDown < 0)
+            {
+                countDown = 0;
+                isCutscenePlaying = false;
+                FadeAndLoadScene(1);
+                numberOfPlays++;
             }
         }
     }
@@ -136,12 +164,15 @@ public class SceneController : MonoBehaviour
     {
         if(numberOfPlays == 0)
         {
-            
+            FadeAndLoadScene(2);
+        }
+        else
+        {
+            FadeAndLoadScene(1);
+            numberOfPlays++;
         }
 
-        FadeAndLoadScene(1);
-        isMainMenuActive = false;
-        numberOfPlays++;
+        isMainMenuActive = false;    
     }
 
     public void CreditsGame()
@@ -284,6 +315,11 @@ public class SceneController : MonoBehaviour
 
         isGameOver = false;
         isInsideGameOver = false;
+
+        if(numberOfPlays == 0)
+        {
+            isCutscenePlaying = true;
+        }
     }
 
     private void FadeAndLoadScene(int sceneBuildIndex)
