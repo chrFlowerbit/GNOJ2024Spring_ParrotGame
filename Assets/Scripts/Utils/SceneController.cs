@@ -4,6 +4,8 @@ using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 public class SceneController : MonoBehaviour
 {
     #region Singleton
@@ -19,17 +21,21 @@ public class SceneController : MonoBehaviour
 
     #region  Serialized Fields
 
-    [SerializeField] GameObject mainMenu;
-    [SerializeField] GameObject credit;
-    [SerializeField] GameObject loadingScreen;
-    [SerializeField] GameObject pauseScreen;
+    [Header("Canvas Panels")]
+    [SerializeField] GameObject mainMenuPanel;
+    [SerializeField] GameObject creditPanel;
+    [SerializeField] GameObject loadingPanel;
+    [SerializeField] GameObject pausePanel;
+    [Space(10)]
+
+    [Header("Loading Settings")]
     [SerializeField] Slider loadingBar;
-    [SerializeField] AudioSource audioSource;
     [SerializeField] float loadingDelta = 0.9f;
+    [Space(10)]
+
+    [Header("Audio Settings")]
     [SerializeField] GameObject musicMuteImage;
-    [SerializeField] Button startGameButton;
-    [SerializeField] Button creditsGameButton;
-    [SerializeField] Button quitGameButton;
+    [SerializeField] AudioSource audioSource;
 
     #endregion
 
@@ -58,6 +64,7 @@ public class SceneController : MonoBehaviour
 
     #endregion
 
+
     private void Awake()
     {
         if (instance == null)
@@ -75,18 +82,18 @@ public class SceneController : MonoBehaviour
 
     void Update()
     {
-        if (loadingScreen.activeSelf)
+        if (loadingPanel.activeSelf)
         {
             loadingBar.value = Mathf.MoveTowards(loadingBar.value, target, loadingDelta * Time.deltaTime);
         }
 
         if(Input.GetKeyDown(KeyCode.Escape)) 
         {
-            if(!pauseScreen.activeSelf && !isMainMenuActive)
+            if(!pausePanel.activeSelf && !isMainMenuActive)
             {
                 SetPauseScreen(true);
             }
-            else if(pauseScreen.activeSelf)
+            else if(pausePanel.activeSelf)
             {
                 SetPauseScreen(false);
             }
@@ -113,15 +120,14 @@ public class SceneController : MonoBehaviour
 
     public void CreditsGame()
     {
-        mainMenu.SetActive(false);
-        credit.SetActive(true);
-        Debug.Log("Credits");
+        mainMenuPanel.SetActive(false);
+        creditPanel.SetActive(true);
     }
 
     public void BackGame()
     {
-        mainMenu.SetActive(true);
-        credit.SetActive(false);
+        mainMenuPanel.SetActive(true);
+        creditPanel.SetActive(false);
     }
 
     public void QuitGame()
@@ -162,7 +168,7 @@ public class SceneController : MonoBehaviour
 
     private void SetPauseScreen(bool setActive)
     {
-        pauseScreen.SetActive(setActive);
+        pausePanel.SetActive(setActive);
         isGamePaused = setActive;
 
         if(setActive)
@@ -180,7 +186,7 @@ public class SceneController : MonoBehaviour
 
     private async void LoadSceneAsync()
     {
-        loadingScreen.SetActive(true);
+        loadingPanel.SetActive(true);
         loadingBar.value = 0;
         target = 0;
 
@@ -198,16 +204,16 @@ public class SceneController : MonoBehaviour
         await Task.Delay(1000);
 
         operation.allowSceneActivation = true;
-        loadingScreen.SetActive(false);
+        loadingPanel.SetActive(false);
         animator.SetBool("IsFadingOut", false);
 
         if(isMainMenuActive)
         {
-            mainMenu.SetActive(true);
+            mainMenuPanel.SetActive(true);
         }
         else
         {
-            mainMenu.SetActive(false);
+            mainMenuPanel.SetActive(false);
         }
     }
 
@@ -217,7 +223,7 @@ public class SceneController : MonoBehaviour
         animator.SetBool("IsFadingOut", true);
         // StartCoroutine(StartFadeAudio(1.0f, 0));
     }
-
+    
     private IEnumerator StartFadeAudio(float duration, float targetVolume)
     {
         float currentTime = 0;
