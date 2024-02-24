@@ -28,6 +28,7 @@ public class SceneController : MonoBehaviour
     [SerializeField] GameObject loadingPanel;
     [SerializeField] GameObject pausePanel;
     [SerializeField] GameObject endScreenPanel;
+    [SerializeField] GameObject fadeImage;
     [Space(10)]
 
     [Header("Loading Settings")]
@@ -55,6 +56,7 @@ public class SceneController : MonoBehaviour
     private bool isGameMusicMuted = false;
     private bool isMainMenuActive = true;
     private bool isGameOver = false;
+    private bool isInsideGameOver = false;
     private bool setCreditActive = false;
 
     #endregion
@@ -104,7 +106,8 @@ public class SceneController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Escape)) 
         {
-            if(!pausePanel.activeSelf && !isMainMenuActive)
+            if(!pausePanel.activeSelf && !isMainMenuActive && !loadingPanel.activeSelf 
+                && !fadeImage.activeSelf && !creditPanel.activeSelf && !endScreenPanel.activeSelf)
             {
                 SetPauseScreen(true);
             }
@@ -182,7 +185,20 @@ public class SceneController : MonoBehaviour
 
     public void OnFadeOutComplete()
     {
-        LoadSceneAsync();
+        if(isInsideGameOver)
+        {
+            animator.SetBool("IsFadingOut", false);
+            endScreenPanel.SetActive(true);
+            scoreNumBerText.text = GameManager.score.ToString();
+            objectDestroyedNumBerText.text = (GameManager.score / 5).ToString();
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+            isInsideGameOver = false;
+        }
+        else 
+        {
+            LoadSceneAsync();
+        }
     }
 
     #endregion
@@ -210,20 +226,19 @@ public class SceneController : MonoBehaviour
     private void SetEndScreen(bool setActive)
     {
         isGameOver = setActive;
+        isInsideGameOver = setActive;
+
         if(setActive)
         {
-            Time.timeScale = 0f;
-            scoreNumBerText.text = GameManager.score.ToString();
-            objectDestroyedNumBerText.text = (GameManager.score / 5).ToString();
+            animator.SetBool("IsFadingOut", true);
         }
         else
         {
+            endScreenPanel.SetActive(false);
             Time.timeScale = 1f;
         }
 
-        endScreenPanel.SetActive(setActive);
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
+        
     }
 
     private async void LoadSceneAsync()
@@ -246,7 +261,8 @@ public class SceneController : MonoBehaviour
         await Task.Delay(1000);
 
         operation.allowSceneActivation = true;
-        if(loadingPanel.activeSelf)   { loadingPanel.SetActive(false); }
+        pausePanel.SetActive(false);
+        loadingPanel.SetActive(false);
         if(endScreenPanel.activeSelf) { SetEndScreen(false); }
 
         animator.SetBool("IsFadingOut", false);
@@ -259,6 +275,7 @@ public class SceneController : MonoBehaviour
         }
 
         isGameOver = false;
+        isInsideGameOver = false;
     }
 
     private void FadeAndLoadScene(int sceneBuildIndex)
