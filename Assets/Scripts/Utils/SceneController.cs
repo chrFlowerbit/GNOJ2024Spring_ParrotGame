@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class SceneController : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class SceneController : MonoBehaviour
     [SerializeField] GameObject creditPanel;
     [SerializeField] GameObject loadingPanel;
     [SerializeField] GameObject pausePanel;
+    [SerializeField] GameObject endScreenPanel;
     [Space(10)]
 
     [Header("Loading Settings")]
@@ -36,6 +38,11 @@ public class SceneController : MonoBehaviour
     [Header("Audio Settings")]
     [SerializeField] GameObject musicMuteImage;
     [SerializeField] AudioSource audioSource;
+    [Space(10)]
+
+    [Header("End Screen")]
+    [SerializeField] TMP_Text scoreNumBerText;
+    [SerializeField] TMP_Text objectDestroyedNumBerText;
 
     #endregion
 
@@ -47,6 +54,8 @@ public class SceneController : MonoBehaviour
     private bool isGamePaused = false;
     private bool isGameMusicMuted = false;
     private bool isMainMenuActive = true;
+    private bool isGameOver = false;
+    private bool setCreditActive = false;
 
     #endregion
 
@@ -60,6 +69,12 @@ public class SceneController : MonoBehaviour
     public bool IsGameMusicMuted
     {
         get { return isGameMusicMuted; }
+    } 
+
+    public bool IsGameOver
+    {
+        get { return isGameOver; }
+        set { SetEndScreen(value); }
     } 
 
     #endregion
@@ -105,10 +120,10 @@ public class SceneController : MonoBehaviour
 
     public void LoadMainMenu()
     {
-        SetPauseScreen(false);
         isMainMenuActive = true;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
+        Time.timeScale = 1f;
         FadeAndLoadScene(0);
     }
 
@@ -120,8 +135,16 @@ public class SceneController : MonoBehaviour
 
     public void CreditsGame()
     {
-        mainMenuPanel.SetActive(false);
-        creditPanel.SetActive(true);
+        if(isGameOver)
+        {
+            setCreditActive = true;
+            LoadMainMenu();
+        }
+        else
+        {
+            mainMenuPanel.SetActive(false);
+            creditPanel.SetActive(true);
+        }
     }
 
     public void BackGame()
@@ -184,6 +207,25 @@ public class SceneController : MonoBehaviour
         Cursor.visible = setActive;
     }
 
+    private void SetEndScreen(bool setActive)
+    {
+        isGameOver = setActive;
+        if(setActive)
+        {
+            Time.timeScale = 0f;
+            scoreNumBerText.text = GameManager.score.ToString();
+            objectDestroyedNumBerText.text = (GameManager.score / 5).ToString();
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+
+        endScreenPanel.SetActive(setActive);
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+    }
+
     private async void LoadSceneAsync()
     {
         loadingPanel.SetActive(true);
@@ -204,17 +246,19 @@ public class SceneController : MonoBehaviour
         await Task.Delay(1000);
 
         operation.allowSceneActivation = true;
-        loadingPanel.SetActive(false);
-        animator.SetBool("IsFadingOut", false);
+        if(loadingPanel.activeSelf)   { loadingPanel.SetActive(false); }
+        if(endScreenPanel.activeSelf) { SetEndScreen(false); }
 
-        if(isMainMenuActive)
+        animator.SetBool("IsFadingOut", false);
+        mainMenuPanel.SetActive(isMainMenuActive);
+
+        if(setCreditActive)
         {
-            mainMenuPanel.SetActive(true);
+            creditPanel.SetActive(true);
+            setCreditActive = false;
         }
-        else
-        {
-            mainMenuPanel.SetActive(false);
-        }
+
+        isGameOver = false;
     }
 
     private void FadeAndLoadScene(int sceneBuildIndex)
