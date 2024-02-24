@@ -25,7 +25,12 @@ public class GameManager : MonoBehaviour
     public int currentMana = 0; // Current mana
     public Slider manaSlider; // Slider to display mana
 
+    public GameObject playerObj; // Reference to the cutscene object
+    public GameObject gameUI; // Reference to the cutscene object
+    public GameObject cutsceneObject; // Reference to the cutscene object
+    public float cutsceneDuration = 10f; // Duration of the cutscene
 
+    public bool cutsceneGoing = true;
     private SceneController sceneController;
     public static GameManager instance;
     public static bool canEmitForce = false;
@@ -36,17 +41,40 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(PlayCutscene());
+
         manaSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = Color.grey;
         instance = this;
-        counter = maxTime;
         UpdateManaUI();
+    }
+    IEnumerator PlayCutscene()
+    {
+        // Activate the cutscene object
+        cutsceneObject.SetActive(true);
+        playerObj.SetActive(false);
+        gameUI.SetActive(false);
+        cutsceneGoing = true;
+
+
+        // Wait for the cutscene duration
+        yield return new WaitForSeconds(cutsceneDuration);
+
+        cutsceneGoing = false;
+        playerObj.SetActive(true);
+        gameUI.SetActive(true);
+        // Deactivate the cutscene object and start the timer
+        cutsceneObject.SetActive(false);
+        counter = maxTime;
     }
     void FixedUpdate()
     {
         // Update the timer value every FixedUpdate
-        UpdateTimer();
-        UpdateTimerUI();
-        UpdateManaUI();
+        if (!cutsceneGoing)
+        {
+            UpdateTimer();
+            UpdateTimerUI();
+            UpdateManaUI();
+        }
     }
     // ����� ��� ���������� ����������� �����
     void UpdateScoreUI(int score)
