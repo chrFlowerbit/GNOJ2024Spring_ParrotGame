@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
         }
 
         // If the timer goes below 0, clamp it to 0
-        if(counter < 2f && !isEndStarted)
+        if(counter < 1f && !isEndStarted)
         {
             isEndStarted = true;
             AudioSource audioSource = FindObjectOfType<AudioManager>().GetComponent<AudioSource>();
