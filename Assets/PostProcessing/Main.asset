@@ -30,13 +30,13 @@ MonoBehaviour:
     value: 65472
   diffusion:
     overrideState: 1
-    value: 6.85
+    value: 5
   anamorphicRatio:
     overrideState: 0
     value: 0
   color:
     overrideState: 1
-    value: {r: 1, g: 0.9104993, b: 0, a: 1}
+    value: {r: 0.007145405, g: 0, b: 1, a: 1}
   fastMode:
     overrideState: 1
     value: 1
@@ -67,8 +67,8 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   color:
-    overrideState: 0
-    value: {r: 0, g: 0, b: 0, a: 1}
+    overrideState: 1
+    value: {r: 1, g: 0, b: 0, a: 1}
   center:
     overrideState: 0
     value: {x: 0.5, y: 0.5}
@@ -76,8 +76,8 @@ MonoBehaviour:
     overrideState: 1
     value: 0.4
   smoothness:
-    overrideState: 0
-    value: 0.2
+    overrideState: 1
+    value: 0.4
   roundness:
     overrideState: 0
     value: 1
@@ -215,7 +215,7 @@ MonoBehaviour:
     defaultState: 1
   intensity:
     overrideState: 1
-    value: 0.1
+    value: 0.255
   fastMode:
     overrideState: 1
     value: 1
@@ -237,21 +237,21 @@ MonoBehaviour:
     value: 1
   filtering:
     overrideState: 0
-    value: {x: 53.999958, y: 99}
+    value: {x: 53.999954, y: 99}
   minLuminance:
     overrideState: 1
-    value: -0.6
+    value: -1
   maxLuminance:
     overrideState: 0
-    value: 1.73
+    value: 0.83
   keyValue:
-    overrideState: 1
+    overrideState: 0
     value: 1
   eyeAdaptation:
     overrideState: 0
     value: 0
   speedUp:
-    overrideState: 1
+    overrideState: 0
     value: 2
   speedDown:
     overrideState: 0
