@@ -7,9 +7,6 @@ public class EmitForce : MonoBehaviour
     [SerializeField] private float forceMagnitude = 500f; // Magnitude of the force applied
     [SerializeField] private float forceRadius = 5f; // Radius of the force field
     [SerializeField] private float forceDuration = 0.5f; // Duration of the force effect
-    [SerializeField] private KeyCode forceKey = KeyCode.F; // Key to activate the force emission
-
-    private float lastEmissionTime = 0f;
 
     [SerializeField] private AudioClip hitSound; // Serialize a hit sound clip
 
@@ -20,7 +17,6 @@ public class EmitForce : MonoBehaviour
         {
             GameManager.instance.ResetSliderValue();
             EmitForceField();
-            lastEmissionTime = Time.time;
         }
 
     }
