@@ -75,18 +75,19 @@ public class GameManager : MonoBehaviour
         {
             UpdateTimer();
             UpdateTimerUI();
-            UpdateManaUI();
+            UpdateManaUI(); 
+            if (instance.currentMana >= maxMana)
+                instance.currentMana = maxMana;
         }
     }
     // ����� ��� ���������� ����������� �����
     void UpdateScoreUI(int score)
     {
-        currentMana++;
-        
-        if (currentMana >= maxMana)
+        instance.currentMana++;
+        if (instance.currentMana >= maxMana)
         {
             canEmitForce = true;
-            currentMana = maxMana;
+            instance.currentMana = maxMana;
             manaSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = Color.red;
         }
 
@@ -95,7 +96,7 @@ public class GameManager : MonoBehaviour
     }
     void UpdateManaUI()
     {
-        float fillAmount = currentMana / (float)maxMana;
+        float fillAmount = instance.currentMana / (float)maxMana;
         manaSlider.value = fillAmount;
     }
     public void ResetSliderValue()

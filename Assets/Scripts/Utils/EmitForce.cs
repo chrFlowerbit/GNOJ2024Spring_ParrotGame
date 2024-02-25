@@ -15,7 +15,9 @@ public class EmitForce : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1) && GameManager.canEmitForce)
         {
-            AudioSource.PlayClipAtPoint(hitSound, transform.position);  
+            GameManager.canEmitForce = false;
+            GameManager.instance.currentMana = 0;
+            AudioSource.PlayClipAtPoint(hitSound, transform.position);
             // Spawn the force effect
             GameObject forceEffect = Instantiate(forceEffectPrefab, transform.position, transform.rotation);
             Destroy(forceEffect, forceDuration); // Destroy the effect after its duration
