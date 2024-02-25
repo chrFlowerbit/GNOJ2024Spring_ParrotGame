@@ -15,6 +15,10 @@ public class EmitForce : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1) && GameManager.canEmitForce)
         {
+            AudioSource.PlayClipAtPoint(hitSound, transform.position);  
+            // Spawn the force effect
+            GameObject forceEffect = Instantiate(forceEffectPrefab, transform.position, transform.rotation);
+            Destroy(forceEffect, forceDuration); // Destroy the effect after its duration
             GameManager.instance.ResetSliderValue();
             EmitForceField();
         }
@@ -41,9 +45,7 @@ public class EmitForce : MonoBehaviour
     {
         DestroyObjectsInRadius();
 
-        // Spawn the force effect
-        GameObject forceEffect = Instantiate(forceEffectPrefab, transform.position, transform.rotation);
-        Destroy(forceEffect, forceDuration); // Destroy the effect after its duration
+      
 
         // Apply force to nearby objects
         Collider[] colliders = Physics.OverlapSphere(transform.position, forceRadius);
@@ -52,7 +54,6 @@ public class EmitForce : MonoBehaviour
             Rigidbody rigidbody = collider.attachedRigidbody;
             if (rigidbody != null && rigidbody.isKinematic == false)
             {
-                AudioSource.PlayClipAtPoint(hitSound, collider.transform.position);
 
                 Vector3 forceDirection = (collider.transform.position - transform.position).normalized;
                 rigidbody.AddForce(forceDirection * forceMagnitude, ForceMode.Impulse);
