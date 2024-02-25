@@ -221,7 +221,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5f86063cca2249743b1820e979d6039b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -432,6 +432,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4476996941638693354, guid: 6f715c28770a55b4891f944ec88b2984, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6241574280875434685, guid: 6f715c28770a55b4891f944ec88b2984, type: 3}
       propertyPath: m_Name
       value: Scene Controller
