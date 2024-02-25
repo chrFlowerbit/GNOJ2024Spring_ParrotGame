@@ -10719,7 +10719,7 @@ MonoBehaviour:
   scoreText: {fileID: 1571465278}
   timerText: {fileID: 547746511}
   timerSlider: {fileID: 1570245674}
-  maxTime: 10
+  maxTime: 100
   maxMana: 10
   currentMana: 0
   manaSlider: {fileID: 687090157}
@@ -71185,7 +71185,6 @@ MonoBehaviour:
   pickUpLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  sphereCastRadius: 0.5
   objectGrabbable: {fileID: 0}
 --- !u!1 &4411211820374351371
 GameObject:
