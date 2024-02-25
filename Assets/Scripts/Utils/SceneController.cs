@@ -40,8 +40,9 @@ public class SceneController : MonoBehaviour
     [Header("Audio Settings")]
     [SerializeField] GameObject musicMuteImage;
     [SerializeField] AudioSource audioSource;
-    [SerializeField] float musicVolume = 0.1f;
+    [SerializeField] float musicVolume = 0.025f;
     [SerializeField] AudioClip mainMenuClip;
+    [SerializeField] AudioClip endClip;
     [Space(10)]
 
     [Header("End Screen")]
@@ -62,6 +63,7 @@ public class SceneController : MonoBehaviour
     private bool isInsideGameOver = false;
     private bool setCreditActive = false;
     private bool isCutscenePlaying = false;
+    private bool isPlaySceneLoaded = false;
     private float countDown = 64f;
 
     private static int numberOfPlays = 0;
@@ -215,17 +217,15 @@ public class SceneController : MonoBehaviour
 
     public void MuteMusic()
     {
-        float currentVolume = 0f;
         if(!isGameMusicMuted)
         {
-            currentVolume = audioSource.volume;
             audioSource.volume = 0f;
             musicMuteImage.SetActive(true);
             isGameMusicMuted = true;
         }
         else
         {
-            audioSource.volume = currentVolume;
+            audioSource.volume = musicVolume;
             musicMuteImage.SetActive(false);
             isGameMusicMuted = false;
         }
@@ -278,6 +278,9 @@ public class SceneController : MonoBehaviour
 
         if(setActive)
         {
+            audioSource.Stop();
+            audioSource.volume = musicVolume;
+            audioSource.PlayOneShot(endClip);
             animator.SetBool("IsFadingOut", true);
         }
         else
@@ -316,12 +319,14 @@ public class SceneController : MonoBehaviour
         animator.SetBool("IsFadingOut", false);
         mainMenuPanel.SetActive(isMainMenuActive);
 
+        isPlaySceneLoaded = levelToLoad != 0 && levelToLoad != 2; 
         if(mainMenuPanel.activeSelf)
         {
-            audioSource.Stop();
-            audioSource.clip = mainMenuClip;
-            audioSource.volume = musicVolume;
-            audioSource.Play(0);
+            PlayClip(mainMenuClip);
+        }
+        if(isPlaySceneLoaded)
+        {
+            PlayClip(mainMenuClip);
         }
 
         if(setCreditActive)
@@ -337,6 +342,7 @@ public class SceneController : MonoBehaviour
         {
             isCutscenePlaying = true;
         }
+
     }
 
     private void FadeAndLoadScene(int sceneBuildIndex)
@@ -346,7 +352,7 @@ public class SceneController : MonoBehaviour
         StartCoroutine(StartFadeAudio(1.0f, 0, audioSource));
     }
     
-    private IEnumerator StartFadeAudio(float duration, float targetVolume, AudioSource audio)
+    public IEnumerator StartFadeAudio(float duration, float targetVolume, AudioSource audio)
     {
         float currentTime = 0;
         float start = audio.volume;
@@ -357,6 +363,14 @@ public class SceneController : MonoBehaviour
             yield return null;
         }
         yield break;
+    }
+
+    private void PlayClip(AudioClip clip)
+    {
+        audioSource.Stop();
+        audioSource.clip = clip;
+        audioSource.volume = musicVolume;
+        audioSource.Play(0);
     }
 
     #endregion
