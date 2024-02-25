@@ -46,6 +46,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+    public Rigidbody rb2;
 
     [HideInInspector]
     public MovementState state;
@@ -72,7 +73,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void Update()
     {
-        mainBone.transform.rotation = transform.rotation;
+        mainBone.transform.position = transform.position;
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
@@ -115,6 +116,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
             transform.GetComponent<BoxCollider>().size = new Vector3(crouchYScale, crouchYScale, crouchYScale);
             //if (state == MovementState.air)
                 rb.AddForce(Vector3.down * jumpForce*2, ForceMode.Impulse);
+            //rb2.AddForce(Vector3.down * jumpForce * 2, ForceMode.Impulse);
 
             //crouching = true;
         }
@@ -199,12 +201,20 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
         //// on ground
         if (grounded)
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            rb2.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            rb2.rotation = Quaternion.Slerp(rb2.rotation, Quaternion.LookRotation(moveDirection), Time.deltaTime * moveSpeed);
 
+        }
         //// in air
         else if (!grounded)
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            rb2.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            rb2.rotation = Quaternion.Slerp(rb2.rotation, Quaternion.LookRotation(moveDirection), Time.deltaTime * moveSpeed);
 
+        }
     }
 
     private void SpeedControl()
@@ -223,8 +233,10 @@ public class PlayerMovementAdvanced : MonoBehaviour
     {
         // reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+
+        rb2.velocity = new Vector3(rb2.velocity.x, 0f, rb2.velocity.z);
+        rb2.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
     private void ResetJump()
     {
