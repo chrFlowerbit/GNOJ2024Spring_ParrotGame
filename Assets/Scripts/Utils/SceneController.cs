@@ -169,6 +169,8 @@ public class SceneController : MonoBehaviour
         if(numberOfPlays == 0)
         {
             FadeAndLoadScene(2);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         else
         {
