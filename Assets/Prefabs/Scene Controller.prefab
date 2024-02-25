@@ -3301,8 +3301,9 @@ MonoBehaviour:
   loadingDelta: 0.9
   musicMuteImage: {fileID: 3015174545433769230}
   audioSource: {fileID: 0}
-  musicVolume: 0.1
+  musicVolume: 0.025
   mainMenuClip: {fileID: 8300000, guid: 5f86063cca2249743b1820e979d6039b, type: 3}
+  endClip: {fileID: 8300000, guid: d0e9c71ed093fd74588f57609e4ccb8e, type: 3}
   scoreNumBerText: {fileID: 9025731039399346447}
   objectDestroyedNumBerText: {fileID: 1801938603807547719}
 --- !u!95 &7912064305585806485

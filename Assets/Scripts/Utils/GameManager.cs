@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public static bool canEmitForce = false;
 
+    private bool isEndStarted = false;
+
     private void Awake() {
         sceneController = FindObjectOfType<SceneController>();
     }
@@ -113,6 +115,12 @@ public class GameManager : MonoBehaviour
         }
 
         // If the timer goes below 0, clamp it to 0
+        if(counter < 2f && !isEndStarted)
+        {
+            isEndStarted = true;
+            AudioSource audioSource = FindObjectOfType<AudioManager>().GetComponent<AudioSource>();
+            StartCoroutine(sceneController.StartFadeAudio(1.0f, 0, audioSource));
+        }
         if (counter < 0f)
         {
             counter = 0f;
