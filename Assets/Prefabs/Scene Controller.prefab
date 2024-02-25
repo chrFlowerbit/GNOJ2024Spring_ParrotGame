@@ -3303,6 +3303,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   musicVolume: 0.025
   mainMenuClip: {fileID: 8300000, guid: 5f86063cca2249743b1820e979d6039b, type: 3}
+  gamePlayClip: {fileID: 8300000, guid: 0d5703b6418b0f34c8ea8921305b83b4, type: 3}
   endClip: {fileID: 8300000, guid: 74939e4299acf3e4dbb034f8ee17feab, type: 3}
   scoreNumBerText: {fileID: 9025731039399346447}
   objectDestroyedNumBerText: {fileID: 1801938603807547719}

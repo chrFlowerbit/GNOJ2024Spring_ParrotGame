@@ -42,6 +42,7 @@ public class SceneController : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] float musicVolume = 0.025f;
     [SerializeField] AudioClip mainMenuClip;
+    [SerializeField] AudioClip gamePlayClip;
     [SerializeField] AudioClip endClip;
     [Space(10)]
 
@@ -281,7 +282,7 @@ public class SceneController : MonoBehaviour
         if(setActive)
         {
             audioSource.Stop();
-            audioSource.volume = musicVolume;
+            audioSource.volume = musicVolume * 2.5f;
             audioSource.PlayOneShot(endClip);
             animator.SetBool("IsFadingOut", true);
         }
@@ -328,7 +329,7 @@ public class SceneController : MonoBehaviour
         }
         if(isPlaySceneLoaded)
         {
-            PlayClip(mainMenuClip);
+            PlayClip(gamePlayClip);
         }
 
         if(setCreditActive)
