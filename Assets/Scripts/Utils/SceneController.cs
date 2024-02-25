@@ -40,6 +40,8 @@ public class SceneController : MonoBehaviour
     [Header("Audio Settings")]
     [SerializeField] GameObject musicMuteImage;
     [SerializeField] AudioSource audioSource;
+    [SerializeField] float musicVolume = 0.1f;
+    [SerializeField] AudioClip mainMenuClip;
     [Space(10)]
 
     [Header("End Screen")]
@@ -126,8 +128,7 @@ public class SceneController : MonoBehaviour
                 countDown = 0;
                 foreach (var audio in FindObjectsOfType<AudioSource>())
                 {
-                    audioSource = audio;
-                    StartCoroutine(StartFadeAudio(1.0f, 0));
+                    StartCoroutine(StartFadeAudio(1.0f, 0, audio));
                 }
             }
         }
@@ -214,15 +215,17 @@ public class SceneController : MonoBehaviour
 
     public void MuteMusic()
     {
+        float currentVolume = 0f;
         if(!isGameMusicMuted)
         {
+            currentVolume = audioSource.volume;
             audioSource.volume = 0f;
             musicMuteImage.SetActive(true);
             isGameMusicMuted = true;
         }
         else
         {
-            audioSource.volume = 1f;
+            audioSource.volume = currentVolume;
             musicMuteImage.SetActive(false);
             isGameMusicMuted = false;
         }
@@ -313,6 +316,14 @@ public class SceneController : MonoBehaviour
         animator.SetBool("IsFadingOut", false);
         mainMenuPanel.SetActive(isMainMenuActive);
 
+        if(mainMenuPanel.activeSelf)
+        {
+            audioSource.Stop();
+            audioSource.clip = mainMenuClip;
+            audioSource.volume = musicVolume;
+            audioSource.Play(0);
+        }
+
         if(setCreditActive)
         {
             creditPanel.SetActive(true);
@@ -332,17 +343,17 @@ public class SceneController : MonoBehaviour
     {
         levelToLoad = sceneBuildIndex;
         animator.SetBool("IsFadingOut", true);
-        // StartCoroutine(StartFadeAudio(1.0f, 0));
+        StartCoroutine(StartFadeAudio(1.0f, 0, audioSource));
     }
     
-    private IEnumerator StartFadeAudio(float duration, float targetVolume)
+    private IEnumerator StartFadeAudio(float duration, float targetVolume, AudioSource audio)
     {
         float currentTime = 0;
-        float start = audioSource.volume;
+        float start = audio.volume;
         while (currentTime < duration)
         {
             currentTime += Time.deltaTime;
-            audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
+            audio.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
             yield return null;
         }
         yield break;
