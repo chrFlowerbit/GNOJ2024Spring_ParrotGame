@@ -29,6 +29,7 @@ public class SceneController : MonoBehaviour
     [SerializeField] GameObject pausePanel;
     [SerializeField] GameObject endScreenPanel;
     [SerializeField] GameObject fadeImage;
+    [SerializeField] string gamesNowUrl;
     [Space(10)]
 
     [Header("Loading Settings")]
@@ -199,6 +200,11 @@ public class SceneController : MonoBehaviour
     {
         Debug.Log("Quitting Game");
         Application.Quit();
+    }
+
+    public void GamesNow()
+    {
+        Application.OpenURL(gamesNowUrl);
     }
 
     public void ContinueGame()
