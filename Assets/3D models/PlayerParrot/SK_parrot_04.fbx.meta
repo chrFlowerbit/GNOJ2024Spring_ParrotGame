@@ -44,7 +44,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -102,7 +102,337 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: SK_parrot_04(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Armature
+      parentName: SK_parrot_04(Clone)
+      position: {x: -0, y: 0.5432696, z: 0}
+      rotation: {x: 0.0000000130380515, y: -0.7071067, z: -0.7071068, w: -0.000000013038049}
+      scale: {x: 30.000002, y: 30.000002, z: 30.000002}
+    - name: MD_core
+      parentName: Armature
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.8253975, y: -0.00000006729985, z: -0.00000009839504, w: 0.564552}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: MD_spine
+      parentName: MD_core
+      position: {x: -0, y: 0.0075544175, z: 0}
+      rotation: {x: -0.06445296, y: -1.439024e-15, z: 0.000000015366782, w: 0.99792075}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: MD_chest
+      parentName: MD_spine
+      position: {x: -3.5527136e-17, y: 0.0057392097, z: -1.4901161e-10}
+      rotation: {x: -0.06765558, y: 2.7231118e-15, z: 0.000000016130347, w: 0.99770874}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: MD_throat
+      parentName: MD_chest
+      position: {x: -7.105427e-17, y: 0.005809416, z: -2.9802322e-10}
+      rotation: {x: -0.008777823, y: -3.886612e-15, z: 0.0000000020927964, w: 0.9999615}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: MD_head
+      parentName: MD_throat
+      position: {x: 3.5527136e-17, y: 0.002396803, z: 0}
+      rotation: {x: -0.07332852, y: 1.7430219e-14, z: 0.000000017482881, w: 0.99730784}
+      scale: {x: 1, y: 1, z: 1}
+    - name: MD_headtip
+      parentName: MD_head
+      position: {x: -7.105427e-17, y: 0.005318921, z: -2.9802322e-10}
+      rotation: {x: -0.044654742, y: 1.5817235e-16, z: 0.00000001064652, w: 0.99900246}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: MD_hair_01
+      parentName: MD_headtip
+      position: {x: 2.842171e-16, y: 0.0041889125, z: 0.0000000011920929}
+      rotation: {x: 0.17453949, y: 7.6082295e-15, z: -0.00000004161345, w: 0.9846502}
+      scale: {x: 1, y: 0.99999994, z: 1.0000001}
+    - name: MD_hair_02
+      parentName: MD_hair_01
+      position: {x: -7.7606396e-17, y: 0.0047013937, z: 0}
+      rotation: {x: 0.62644047, y: 6.023682e-15, z: -0.00000014935509, w: 0.77946925}
+      scale: {x: 1, y: 1, z: 1}
+    - name: MD_hair_03
+      parentName: MD_hair_02
+      position: {x: 7.6395765e-16, y: 0.007060216, z: 0.0000000023283064}
+      rotation: {x: 0.010521139, y: -1.3965006e-14, z: -0.0000000025084368, w: 0.9999447}
+      scale: {x: 1, y: 1, z: 1}
+    - name: MD_hair_04
+      parentName: MD_hair_03
+      position: {x: -6.054144e-17, y: 0.0076737404, z: -9.872019e-10}
+      rotation: {x: 0.5845936, y: 9.324285e-15, z: -0.000000139378, w: 0.81132627}
+      scale: {x: 0.99999994, y: 1, z: 0.9999999}
+    - name: MD_mouth
+      parentName: MD_head
+      position: {x: -7.105427e-17, y: 0.005318921, z: -2.9802322e-10}
+      rotation: {x: 0.8199852, y: -0.0000001364671, z: -0.0000003909993, w: 0.5723847}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: MD_bottombeak
+      parentName: MD_mouth
+      position: {x: -2.842171e-16, y: 0.004233545, z: -5.9604643e-10}
+      rotation: {x: -0.06252593, y: -0.0000004759014, z: 0.0000000745365, w: 0.99804336}
+      scale: {x: 1, y: 0.9999999, z: 0.99999994}
+    - name: MD_topbeak_01
+      parentName: MD_mouth
+      position: {x: -2.842171e-16, y: 0.004233545, z: -5.9604643e-10}
+      rotation: {x: -0.54309076, y: -0.00000010009699, z: 0.00000045319018, w: 0.839674}
+      scale: {x: 1, y: 0.9999998, z: 0.9999998}
+    - name: MD_topbeak_02
+      parentName: MD_topbeak_01
+      position: {x: 2.444364e-16, y: 0.002849915, z: -0.0000000017881393}
+      rotation: {x: 0.63588625, y: -2.583359e-13, z: -0.0000006064285, w: 0.7717828}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: L_collarbone
+      parentName: MD_chest
+      position: {x: -7.105427e-17, y: 0.005809416, z: -2.9802322e-10}
+      rotation: {x: 0.008338789, y: -0.0010300908, z: -0.7475819, w: 0.6641165}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.9999999}
+    - name: L_shoulder
+      parentName: L_collarbone
+      position: {x: 8.1956386e-10, y: 0.006923448, z: 2.3283064e-10}
+      rotation: {x: -0.047860224, y: 0.000000107750104, z: 0.4073341, w: 0.9120243}
+      scale: {x: 0.99999994, y: 1.0000006, z: 1.0000002}
+    - name: L_upperarm_01
+      parentName: L_shoulder
+      position: {x: -2.6077032e-10, y: 0.0028338772, z: 5.2154064e-10}
+      rotation: {x: 0.016131759, y: 0.014674304, z: -0.37758085, w: 0.9257198}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000002}
+    - name: L_elbow_01
+      parentName: L_upperarm_01
+      position: {x: -0.00000000115484, y: 0.0059652734, z: 1.4901161e-10}
+      rotation: {x: 0.06507065, y: -0.0013491195, z: 0.0351431, w: 0.99726075}
+      scale: {x: 0.9999996, y: 0.99999976, z: 0.99999964}
+    - name: L_middlearm_01
+      parentName: L_elbow_01
+      position: {x: -4.842877e-10, y: 0.005276553, z: -7.45058e-10}
+      rotation: {x: -0.08702033, y: 0.006805538, z: 0.0730166, w: 0.9935038}
+      scale: {x: 1.0000005, y: 1, z: 1}
+    - name: L_middlearm_02
+      parentName: L_middlearm_01
+      position: {x: 4.0978193e-10, y: 0.0057053333, z: 2.4214386e-10}
+      rotation: {x: 0.0957003, y: 0.012064837, z: 0.16619845, w: 0.98136336}
+      scale: {x: 0.9999997, y: 0.9999998, z: 0.9999998}
+    - name: L_elbow_02
+      parentName: L_middlearm_02
+      position: {x: -6.705522e-10, y: 0.008548192, z: -2.9802322e-10}
+      rotation: {x: 0.038176887, y: 0.06965306, z: 0.30084774, w: 0.9503587}
+      scale: {x: 0.99999994, y: 0.99999964, z: 0.99999976}
+    - name: L_middlearm_03
+      parentName: L_middlearm_02
+      position: {x: -0.0000000017881393, y: 0.008548187, z: -5.9604643e-10}
+      rotation: {x: -0.20330495, y: 0.15295714, z: -0.47589675, w: 0.8418988}
+      scale: {x: 0.99999994, y: 0.9999998, z: 0.9999998}
+    - name: L_wingsection_02
+      parentName: L_middlearm_01
+      position: {x: 4.0978193e-10, y: 0.0057053333, z: 2.4214386e-10}
+      rotation: {x: -0.1990374, y: 0.1604337, z: -0.5776632, w: 0.7752099}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: L_wingsection_01
+      parentName: L_upperarm_01
+      position: {x: -8.9406965e-10, y: 0.005965271, z: 4.4703483e-10}
+      rotation: {x: -0.09227869, y: 0.22962645, z: -0.5064925, w: 0.82596713}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: R_collarbone
+      parentName: MD_chest
+      position: {x: -7.477964e-17, y: 0.005809416, z: -2.9802322e-10}
+      rotation: {x: -0.078955926, y: 0.07852124, z: 0.7434476, w: 0.659459}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: R_shoulder
+      parentName: R_collarbone
+      position: {x: 0.0000000013038516, y: 0.006923447, z: 4.842877e-10}
+      rotation: {x: 0.04786032, y: -0.00000026732295, z: -0.40733436, w: 0.9120242}
+      scale: {x: 0.99999994, y: 1.0000002, z: 1}
+    - name: R_upperarm_01
+      parentName: R_shoulder
+      position: {x: -7.0780515e-10, y: 0.0028338784, z: 2.9802322e-10}
+      rotation: {x: 0.2534058, y: -0.7487463, z: 0.28037995, w: 0.54456556}
+      scale: {x: 1, y: 0.9999998, z: 1.0000004}
+    - name: R_elbow_01
+      parentName: R_upperarm_01
+      position: {x: -5.9604643e-10, y: 0.0059652687, z: 5.2154064e-10}
+      rotation: {x: -0.07289395, y: -0.7539399, z: -0.012476249, w: 0.65276754}
+      scale: {x: 0.99999934, y: 0.9999996, z: 0.9999998}
+    - name: R_middlearm_01
+      parentName: R_elbow_01
+      position: {x: 0.0000000016018747, y: 0.0052765524, z: -5.9604643e-10}
+      rotation: {x: -0.07220519, y: 0.9778798, z: 0.08769449, w: -0.1756336}
+      scale: {x: 0.99999976, y: 0.9999999, z: 1}
+    - name: R_middlearm_02
+      parentName: R_middlearm_01
+      position: {x: -7.4505804e-11, y: 0.005705332, z: 3.5390257e-10}
+      rotation: {x: 0.04939668, y: -0.42646608, z: -0.18531102, w: 0.8839381}
+      scale: {x: 0.9999997, y: 1, z: 1}
+    - name: R_elbow_02
+      parentName: R_middlearm_02
+      position: {x: -8.9406965e-10, y: 0.008548192, z: -5.9604643e-10}
+      rotation: {x: -0.105786964, y: 0.13623871, z: -0.28421056, w: 0.9431185}
+      scale: {x: 1.0000001, y: 1, z: 1.0000002}
+    - name: R_middlearm_03
+      parentName: R_middlearm_02
+      position: {x: 0.0000000011920929, y: 0.008548194, z: -0.0000000020861626}
+      rotation: {x: 0.18448254, y: -0.21069348, z: 0.48350477, w: 0.82933563}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: R_wingsection_02
+      parentName: R_middlearm_01
+      position: {x: 0.0000000014342367, y: 0.0057053296, z: 1.4901161e-10}
+      rotation: {x: -0.12722793, y: -0.38050494, z: 0.5975982, w: 0.69419414}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: R_wingsection_01
+      parentName: R_upperarm_01
+      position: {x: -2.9802322e-10, y: 0.005965271, z: 0.0000000014156103}
+      rotation: {x: 0.29194885, y: 0.45829034, z: 0.42404693, w: 0.72451365}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: L_wingsection_IK
+      parentName: Armature
+      position: {x: 0.035168197, y: -0.008293019, z: 0.026547233}
+      rotation: {x: 0.7950222, y: 0.29633194, z: 0.08732896, w: 0.52201617}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: L_hip
+      parentName: Armature
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.07257345, y: -0.061196312, z: -0.7610339, w: 0.6417286}
+      scale: {x: 0.9999999, y: 0.99999994, z: 0.99999994}
+    - name: L_kneecap_01
+      parentName: L_hip
+      position: {x: -1.5832484e-10, y: 0.006990219, z: 2.6064267e-10}
+      rotation: {x: -0.71824765, y: -0.3959853, z: -0.08314279, w: 0.5660417}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1.0000004}
+    - name: L_kneecap_02
+      parentName: L_kneecap_01
+      position: {x: 1.4901161e-10, y: 0.0051229787, z: -0.0000000010430813}
+      rotation: {x: -0.01703502, y: 0.059888832, z: 0.4578228, w: 0.88686043}
+      scale: {x: 1.0000001, y: 0.9999998, z: 0.99999976}
+    - name: L_shin
+      parentName: L_kneecap_02
+      position: {x: -5.3085386e-10, y: 0.0070694443, z: -0.0000000014714896}
+      rotation: {x: 0.09387989, y: -0.08433969, z: -0.1336426, w: 0.98296136}
+      scale: {x: 1, y: 1.0000005, z: 1.0000002}
+    - name: L_foot
+      parentName: L_shin
+      position: {x: 1.862645e-10, y: 0.007798939, z: 3.7252902e-11}
+      rotation: {x: 0.7007484, y: -0.6760004, z: -0.13107482, w: 0.18653272}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: L_toe_01
+      parentName: L_foot
+      position: {x: 8.475035e-10, y: 0.0063128625, z: -7.4505804e-11}
+      rotation: {x: -0.17582422, y: -0.014361109, z: 0.050959505, w: 0.9829968}
+      scale: {x: 1, y: 1, z: 1}
+    - name: L_toe_02
+      parentName: L_foot
+      position: {x: 8.475035e-10, y: 0.0063128625, z: -7.4505804e-11}
+      rotation: {x: -0.012346679, y: -0.016704837, z: 0.059792075, w: 0.9979947}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: R_hip
+      parentName: Armature
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.5241871, y: 0.52273345, z: 0.55647767, w: 0.3772404}
+      scale: {x: 0.99999994, y: 0.9999998, z: 0.99999994}
+    - name: R_kneecap_01
+      parentName: R_hip
+      position: {x: -1.4901161e-10, y: 0.0069902204, z: 7.4505804e-11}
+      rotation: {x: -0.34177098, y: -0.6117181, z: 0.6371696, w: -0.32094932}
+      scale: {x: 1.0000001, y: 0.99999994, z: 1.0000001}
+    - name: R_kneecap_02
+      parentName: R_kneecap_01
+      position: {x: 4.0978193e-10, y: 0.0051229796, z: -1.11758706e-10}
+      rotation: {x: 0.1309055, y: 0.14691152, z: 0.4390389, w: 0.87665594}
+      scale: {x: 1.0000002, y: 1.0000001, z: 0.99999994}
+    - name: R_shin
+      parentName: R_kneecap_02
+      position: {x: 4.703179e-10, y: 0.007069444, z: 4.9360094e-10}
+      rotation: {x: -0.11949074, y: -0.1020503, z: -0.11133605, w: 0.9812808}
+      scale: {x: 0.9999996, y: 0.9999999, z: 1.0000001}
+    - name: R_foot
+      parentName: R_shin
+      position: {x: -1.6007107e-10, y: 0.0077989376, z: 1.4901161e-10}
+      rotation: {x: -0.71239775, y: 0.70113724, z: -0.026813358, w: 0.013310825}
+      scale: {x: 1.0000001, y: 1.0000001, z: 0.9999999}
+    - name: R_toe_01
+      parentName: R_foot
+      position: {x: -8.0093737e-10, y: 0.0063128625, z: 6.705522e-10}
+      rotation: {x: 0.17179868, y: -0.017564224, z: 0.0632158, w: 0.9829448}
+      scale: {x: 0.9999999, y: 0.99999994, z: 0.9999998}
+    - name: R_toe_02
+      parentName: R_foot
+      position: {x: -8.0093737e-10, y: 0.0063128625, z: 6.705522e-10}
+      rotation: {x: 0.009579636, y: -0.040064443, z: 0.060297277, w: 0.99733007}
+      scale: {x: 0.9999999, y: 0.99999994, z: 0.9999999}
+    - name: MD_spine_02
+      parentName: Armature
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.34466398, y: -0.000000111904875, z: 0.000000041087144, w: 0.9387261}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: MD_tail_01
+      parentName: MD_spine_02
+      position: {x: 8.5498745e-18, y: 0.00752617, z: -2.9802322e-10}
+      rotation: {x: -0.010420694, y: -1.7762905e-15, z: 0.000000002484481, w: 0.9999457}
+      scale: {x: 1, y: 1, z: 1}
+    - name: MD_tail_02
+      parentName: MD_tail_01
+      position: {x: 4.776356e-17, y: 0.007856579, z: -1.8626451e-11}
+      rotation: {x: 0.24319012, y: -1.2053734e-15, z: -0.000000057981048, w: 0.96997863}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: MD_tailcoat_01
+      parentName: MD_tail_02
+      position: {x: -8.5633846e-17, y: 0.005005718, z: 5.9604643e-10}
+      rotation: {x: 0.116384044, y: 3.9564647e-16, z: -0.000000027748117, w: 0.9932043}
+      scale: {x: 1, y: 0.9999999, z: 1}
+    - name: MD_tailcoat_02
+      parentName: MD_tailcoat_01
+      position: {x: 9.065834e-17, y: 0.0042050653, z: 3.9502993e-10}
+      rotation: {x: -0.000000029285713, y: 1.9852338e-23, z: 6.6690546e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: MD_tailcoat_03
+      parentName: MD_tailcoat_02
+      position: {x: -1.3091995e-17, y: 0.0042135105, z: 1.4244818e-11}
+      rotation: {x: -0.000000023658298, y: 3.5734202e-22, z: 5.387559e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: MD_tailcoat_04
+      parentName: MD_tailcoat_03
+      position: {x: 2.0688013e-16, y: 0.0042473115, z: -2.0234836e-10}
+      rotation: {x: -0.000000017985741, y: 6.154224e-22, z: 4.095781e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: MD_tailcoat_05
+      parentName: MD_tailcoat_04
+      position: {x: -1.3476033e-16, y: 0.0042620557, z: -3.9615283e-10}
+      rotation: {x: -0.0000000122934996, y: 8.1394587e-22, z: 2.7995205e-15, w: 1}
+      scale: {x: 0.99999994, y: 0.9999998, z: 0.9999999}
+    - name: MD_tailcoat_IK
+      parentName: Armature
+      position: {x: -2.4946735e-18, y: 0.042623535, z: -0.011235011}
+      rotation: {x: 0.0049018078, y: -0.0000001192079, z: -5.843409e-10, w: 0.999988}
+      scale: {x: 1, y: 1, z: 1}
+    - name: MD_hair_IK
+      parentName: Armature
+      position: {x: 4.856554e-18, y: -0.0206815, z: 0.03187197}
+      rotation: {x: -0.6564311, y: -0.000000089929806, z: 0.00000007825269, w: 0.754386}
+      scale: {x: 1, y: 1, z: 1}
+    - name: L_heel_IK
+      parentName: Armature
+      position: {x: 0.0057137697, y: -0.002883243, z: -0.01715669}
+      rotation: {x: 0, y: 0.61924875, z: -0, w: 0.7851949}
+      scale: {x: 1, y: 1, z: 1}
+    - name: R_heel_IK
+      parentName: Armature
+      position: {x: -0.0057137697, y: -0.002883243, z: -0.01715669}
+      rotation: {x: 0, y: 0.64745283, z: -0, w: 0.7621055}
+      scale: {x: 1, y: 1, z: 1}
+    - name: R_wingsection_IK
+      parentName: Armature
+      position: {x: -0.035168197, y: -0.008293019, z: 0.026547233}
+      rotation: {x: 0.7377579, y: -0.006250406, z: 0.30886883, w: 0.6002286}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: Bone
+      parentName: Armature
+      position: {x: -7.444302e-19, y: 0.0033526155, z: -0.018303555}
+      rotation: {x: 0.999899, y: 4.4828297e-22, z: -7.81001e-15, w: 0.014209703}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: parrot
+      parentName: SK_parrot_04(Clone)
+      position: {x: -0, y: 0.5432696, z: 0}
+      rotation: {x: -0.63420945, y: 0, z: -0, w: 0.77316135}
+      scale: {x: 29.999996, y: 29.999996, z: 29.999996}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -113,13 +443,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: Armature
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

@@ -12,6 +12,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public float walkSpeed;
     public float airMinSpeed;
 
+    public GameObject mainBone;
     public float speedIncreaseMultiplier;
 
     public float groundDrag;
@@ -71,6 +72,7 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void Update()
     {
+        mainBone.transform.rotation = transform.rotation;
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
