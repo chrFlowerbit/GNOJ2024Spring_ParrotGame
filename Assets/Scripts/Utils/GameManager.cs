@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        score = 0;
         StartCoroutine(PlayCutscene());
 
         manaSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = Color.grey;
